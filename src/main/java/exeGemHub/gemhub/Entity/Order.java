@@ -1,5 +1,6 @@
 package exeGemHub.gemhub.Entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -29,8 +30,10 @@ public class Order {
     @Column(name = "orderPhone")
     private String orderPhone;
     @Column(name = "createTime")
+    @JsonFormat(shape = JsonFormat.Shape.STRING , pattern = "dd-MM-yyyy")
     private Date createTime;
     @Column(name = "updateTime")
+    @JsonFormat(shape = JsonFormat.Shape.STRING , pattern = "dd-MM-yyyy")
     private Date updateTime;
     @Column(name = "status")
     private String status;

@@ -1,5 +1,6 @@
 package exeGemHub.gemhub.Entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -30,8 +31,10 @@ public class Product {
     @Column(name = "productPrice")
     private float productPrice;
     @Column(name = "createTime")
+    @JsonFormat(shape = JsonFormat.Shape.STRING , pattern = "dd-MM-yyyy")
     private Date createTime;
     @Column(name = "updateTime")
+    @JsonFormat(shape = JsonFormat.Shape.STRING , pattern = "dd-MM-yyyy")
     private Date updateTime;
 
     @OneToMany(mappedBy = "product")
