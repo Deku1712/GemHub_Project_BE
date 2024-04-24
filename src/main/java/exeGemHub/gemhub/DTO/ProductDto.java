@@ -17,7 +17,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProductDto {
-    @NotNull
+
     private String productName;
     private String productType;
     private int productQuantity;
