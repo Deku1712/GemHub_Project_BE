@@ -1,14 +1,12 @@
 package exeGemHub.gemhub.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Data
@@ -23,15 +21,14 @@ public class Cart {
 
     @OneToOne
     @JoinColumn(name = "userId")
+    @JsonIgnore
     private User user;
 
-    @ManyToMany
-    @JoinTable(
-            name = "cart_product",
-            joinColumns = @JoinColumn(name = "cart_id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id")
-    )
-    private Set<Product> products = new HashSet<>();
+    @ElementCollection
+    @CollectionTable(name = "cart_items", joinColumns = @JoinColumn(name = "cart_id"))
+    @MapKeyJoinColumn(name = "product_id")
+    @Column(name = "quantity")
+    private Map<Product, Integer> items = new HashMap<>();
 
 
 

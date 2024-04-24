@@ -1,5 +1,6 @@
 package exeGemHub.gemhub.Service;
 
+import exeGemHub.gemhub.DTO.ProductDto;
 import exeGemHub.gemhub.Entity.Product;
 import exeGemHub.gemhub.Repository.ProductRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,4 +16,12 @@ public interface ProductService {
 
 
     List<Product> findAll();
+
+    Product createProduct(ProductDto productDto);
+
+    void deleteAllProduct();
+
+    Product updateProductById(int id, ProductDto productDto);
+
+    void deleteProductById(int id);
 }
