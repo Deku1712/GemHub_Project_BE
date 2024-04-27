@@ -37,7 +37,7 @@ public class Product {
     @JsonFormat(shape = JsonFormat.Shape.STRING , pattern = "dd-MM-yyyy")
     private Date updateTime;
 
-    @OneToMany(mappedBy = "product")
+    @OneToMany(mappedBy = "product" , cascade = CascadeType.ALL)
     private List<Image> imgs = new ArrayList<>();
 
 }

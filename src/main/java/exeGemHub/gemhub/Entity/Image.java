@@ -1,5 +1,6 @@
 package exeGemHub.gemhub.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,6 +23,7 @@ public class Image {
 
     @ManyToOne
     @JoinColumn(name = "productId")
+    @JsonIgnore
     private Product product;
 
 }
