@@ -7,7 +7,7 @@ public interface CartService {
 
     Cart getCartByUser();
 
-    void addProductToCart(int id);
+    Cart addProductToCart(int id);
 
     void updateItem(ItemDto itemDto);
 

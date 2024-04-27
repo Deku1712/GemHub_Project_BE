@@ -31,7 +31,7 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public void addProductToCart(int id) {
+    public Cart addProductToCart(int id) {
         Product product = productRepo.findById(id).get();
         Cart cart = getCartByUser();
         if(cart != null ){
@@ -43,7 +43,7 @@ public class CartServiceImpl implements CartService {
                 items.put(product, 1);
             }
             cart.setItems(items);
-            cartRepo.save(cart);
+            return cartRepo.save(cart);
         }
         else {
             User user = userRepo.findById(1).get(); // just example.
@@ -52,7 +52,7 @@ public class CartServiceImpl implements CartService {
             Map<Product , Integer> items = newCart.getItems();
             items.put(product, 1);
             newCart.setItems(items);
-            cartRepo.save(newCart);
+            return cartRepo.save(newCart);
         }
     }
 

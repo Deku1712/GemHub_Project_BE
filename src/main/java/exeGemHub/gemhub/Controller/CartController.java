@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:5173")
 @RequestMapping("/cart")
 public class CartController {
 
@@ -19,8 +20,8 @@ public class CartController {
     }
 
     @PostMapping("/product/{id}")
-    public void addItemToCart(@PathVariable("id") int id) {
-        cartService.addProductToCart(id);
+    public Cart addItemToCart(@PathVariable("id") int id) {
+        return cartService.addProductToCart(id);
     }
 
     @PutMapping("/product")
