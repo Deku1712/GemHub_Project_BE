@@ -79,7 +79,10 @@ public class SecurityConfig {
 		http
 				.csrf(AbstractHttpConfigurer::disable)
 				.authorizeHttpRequests(req ->
-								req.requestMatchers("/authen/signUp").permitAll().requestMatchers("/authen/logIn").permitAll()
+								req.requestMatchers("/authen/signUp").permitAll()
+										.requestMatchers("/authen/logIn").permitAll()
+										.requestMatchers("/cart/**").permitAll()
+										.requestMatchers("/products/**").permitAll()
 										.anyRequest()
 										.authenticated()
 				);
