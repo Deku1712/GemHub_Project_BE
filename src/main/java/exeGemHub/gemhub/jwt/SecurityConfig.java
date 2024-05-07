@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -82,6 +83,7 @@ public class SecurityConfig {
 								req.requestMatchers("/authen/signUp").permitAll()
 										.requestMatchers("/authen/logIn").permitAll()
 										.requestMatchers("/cart/**").permitAll()
+										.requestMatchers("/products").permitAll()
 										.requestMatchers("/products/**").permitAll()
 										.anyRequest()
 										.authenticated()
