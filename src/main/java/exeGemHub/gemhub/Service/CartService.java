@@ -9,7 +9,11 @@ public interface CartService {
 
     Cart addProductToCart(int id);
 
-    void updateItem(ItemDto itemDto);
+    Cart updateItem(ItemDto itemDto);
 
     void deleteItem(int id);
+
+    void increaseQuantity(int productId);
+
+    void decreaseQuantity(int productId);
 }

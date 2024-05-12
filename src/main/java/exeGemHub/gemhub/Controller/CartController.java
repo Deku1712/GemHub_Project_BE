@@ -25,14 +25,15 @@ public class CartController {
     }
 
     @PutMapping("/product")
-    public void updateItem(@RequestBody ItemDto itemDto){
-        cartService.updateItem(itemDto);
+    public Cart updateItem(@RequestBody ItemDto itemDto){
+        return cartService.updateItem(itemDto);
     }
 
     @DeleteMapping("/product/{id}")
     public void deleteItemInCart(@PathVariable("id") int id){
         cartService.deleteItem(id);
     }
+
 
 
 }

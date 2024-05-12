@@ -4,11 +4,15 @@ import exeGemHub.gemhub.DTO.ItemDto;
 import exeGemHub.gemhub.Entity.Cart;
 import exeGemHub.gemhub.Entity.Product;
 import exeGemHub.gemhub.Entity.User;
+import exeGemHub.gemhub.Entity.UserPrinciple;
 import exeGemHub.gemhub.Repository.CartRepo;
 import exeGemHub.gemhub.Repository.ProductRepo;
 import exeGemHub.gemhub.Repository.UserRepo;
 import exeGemHub.gemhub.Service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
@@ -22,11 +26,17 @@ public class CartServiceImpl implements CartService {
     @Autowired
     private UserRepo userRepo;
 
+
+
     @Autowired
     private ProductRepo productRepo;
     @Override
     public Cart getCartByUser() {
-        User user = userRepo.findById(1).get();
+        SecurityContext contextHolder = SecurityContextHolder.getContext();
+        Authentication authentication = contextHolder.getAuthentication();
+        UserPrinciple userPrinciple = (UserPrinciple) authentication.getPrincipal();
+        String username = userPrinciple.getUsername();
+        User user = userRepo.findByUsername(username);
         return cartRepo.findCartByUser(user);
     }
 
@@ -46,7 +56,11 @@ public class CartServiceImpl implements CartService {
             return cartRepo.save(cart);
         }
         else {
-            User user = userRepo.findById(1).get(); // just example.
+            SecurityContext contextHolder = SecurityContextHolder.getContext();
+            Authentication authentication = contextHolder.getAuthentication();
+            UserPrinciple userPrinciple = (UserPrinciple) authentication.getPrincipal();
+            String username = userPrinciple.getUsername();
+            User user = userRepo.findByUsername(username);
             Cart newCart = new Cart();
             newCart.setUser(user);
             Map<Product , Integer> items = newCart.getItems();
@@ -57,13 +71,14 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public void updateItem(ItemDto itemDto) {
+    public Cart updateItem(ItemDto itemDto) {
         Product p = productRepo.findById(itemDto.getProductId()).get();
         Cart cart = getCartByUser();
         Map<Product, Integer> items = cart.getItems();
         items.computeIfPresent(p , (k,v) -> itemDto.getQuantityOfProduct());
         cart.setItems(items);
         cartRepo.save(cart);
+        return cart;
     }
 
     @Override
@@ -72,5 +87,21 @@ public class CartServiceImpl implements CartService {
         Cart cart = getCartByUser();
         Map<Product,Integer> items = cart.getItems();
         items.computeIfPresent(p , (k,v) -> null);
+    }
+
+    @Override
+    public void increaseQuantity(int productId) {
+//        Product p = productRepo.findById(productId).get();
+//        Cart cart = getCartByUser();
+//        Map<Product, Integer> items = cart.getItems();
+//        items.computeIfPresent(p, (k,v) -> v+1);
+    }
+
+    @Override
+    public void decreaseQuantity(int productId) {
+//        Product p = productRepo.findById(productId).get();
+//        Cart cart = getCartByUser();
+//        Map<Product, Integer> items = cart.getItems();
+//        items.computeIfPresent(p, (k,v) -> v-1);
     }
 }
