@@ -28,4 +28,8 @@ public class AddressController {
     public Address getAddressDefault() {
         return  addressService.getAddressDefault();
     }
+    @PutMapping("/updateDefault/{id}")
+    public List<Address> updateAddressDefault(@PathVariable("id") int id) {
+        return addressService.updateAddressDefault(id);
+    }
 }

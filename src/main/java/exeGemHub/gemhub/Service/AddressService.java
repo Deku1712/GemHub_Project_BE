@@ -11,4 +11,6 @@ public interface AddressService {
     void addAddress(AddressDTO addressDTO);
 
     Address getAddressDefault();
+
+    List<Address> updateAddressDefault(int id);
 }
