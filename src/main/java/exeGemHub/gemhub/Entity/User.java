@@ -42,10 +42,13 @@ public class User {
     private Date updateTime;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "Users_Roles" , joinColumns =  @JoinColumn(name = "userID"), inverseJoinColumns = @JoinColumn(name="roleID"))
+    @JoinTable(
+        name = "Users_Roles",
+        joinColumns = @JoinColumn(name = "userID"),
+        inverseJoinColumns = @JoinColumn(name = "roleID"),
+        foreignKey = @ForeignKey(name = "FK_user_roles_user"),
+        inverseForeignKey = @ForeignKey(name = "FK_user_roles_role")
+    )
     private Set<Role> role = new HashSet<>();
-
-
-
 
 }
