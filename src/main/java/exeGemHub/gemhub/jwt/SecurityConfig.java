@@ -139,6 +139,7 @@ public class SecurityConfig {
 										.requestMatchers("/cart/**").permitAll()
 										.requestMatchers("/products").permitAll()
 										.requestMatchers("/products/**").permitAll()
+										.requestMatchers("/payment/vnpay-payment").permitAll()
 										.anyRequest()
 										.authenticated()
 				);
