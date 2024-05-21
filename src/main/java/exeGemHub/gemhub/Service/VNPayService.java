@@ -117,4 +117,23 @@ public class VNPayService {
         }
     }
 
+    public String createQueryString(HttpServletRequest request) {
+
+        int paymentStatus = orderReturn(request);
+        String orderInfo = request.getParameter("vnp_OrderInfo");
+        String paymentTime = request.getParameter("vnp_PayDate");
+        String transactionId = request.getParameter("vnp_TransactionNo");
+        String totalPrice = request.getParameter("vnp_Amount");
+
+        StringBuilder queryString = new StringBuilder();
+        queryString.append("paymentStatus=").append(URLEncoder.encode(String.valueOf(paymentStatus), StandardCharsets.UTF_8));
+        queryString.append("&orderInfo=").append(URLEncoder.encode(orderInfo, StandardCharsets.UTF_8));
+        queryString.append("&paymentTime=").append(URLEncoder.encode(paymentTime, StandardCharsets.UTF_8));
+        queryString.append("&transactionId=").append(URLEncoder.encode(transactionId, StandardCharsets.UTF_8));
+        queryString.append("&totalPrice=").append(URLEncoder.encode(totalPrice, StandardCharsets.UTF_8));
+
+
+        return queryString.toString();
+    }
+
 }
