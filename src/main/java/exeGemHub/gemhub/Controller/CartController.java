@@ -28,10 +28,10 @@ public class CartController {
     public Cart updateItem(@RequestBody ItemDto itemDto){
         return cartService.updateItem(itemDto);
     }
-
-    @DeleteMapping("/product/{id}")
-    public void deleteItemInCart(@PathVariable("id") int id){
-        cartService.deleteItem(id);
+//
+    @DeleteMapping("/items/{id}")
+    public Cart deleteItemInCart(@PathVariable("id") int id){
+        return cartService.deleteItem(id);
     }
 
 

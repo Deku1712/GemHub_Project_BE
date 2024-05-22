@@ -11,9 +11,9 @@ public interface CartService {
 
     Cart updateItem(ItemDto itemDto);
 
-    void deleteItem(int id);
-
-    void increaseQuantity(int productId);
-
-    void decreaseQuantity(int productId);
+    Cart deleteItem(int id);
+//
+//    void increaseQuantity(int productId);
+//
+//    void decreaseQuantity(int productId);
 }
