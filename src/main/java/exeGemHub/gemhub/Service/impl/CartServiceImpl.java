@@ -13,8 +13,6 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
@@ -63,13 +61,15 @@ public class CartServiceImpl implements CartService {
         Optional<ItemOfCart> findItem = itemOfCarts.stream().filter(item -> item.getProduct().getId() == productId).findFirst();
         if(findItem.isPresent()) {
             findItem.get().setQuantity(findItem.get().getQuantity() + 1);
+            findItem.get().setStatus(true);
+
         }
         else {
             ItemOfCart newItem = new ItemOfCart();
             newItem.setProduct(product);
             newItem.setQuantity(1);
             newItem.setCart(cartByUser);
-            newItem.setStatus(false);
+            newItem.setStatus(true);
             itemOfCarts.add(newItem);
         }
         cartByUser.setItems(itemOfCarts);
@@ -79,25 +79,30 @@ public class CartServiceImpl implements CartService {
 
 
 
-//
-//    @Override
-//    public Cart updateItem(ItemDto itemDto) {
-//        Product p = productRepo.findById(itemDto.getProductId()).get();
-//        Cart cart = getCartByUser();
-//        Map<Product, Integer> items = cart.getItems();
-//        items.computeIfPresent(p , (k,v) -> itemDto.getQuantityOfProduct());
-//        cart.setItems(items);
-//        cartRepo.save(cart);
-//        return cart;
-//    }
-//
-//    @Override
-//    public void deleteItem(int id) {
-//        Product p = productRepo.findById(id).get();
-//        Cart cart = getCartByUser();
-//        Map<Product,Integer> items = cart.getItems();
-//        items.computeIfPresent(p , (k,v) -> null);
-//    }
+
+    @Override
+    public Cart updateItem(ItemDto itemDto) {
+        Product p = productRepo.findById(itemDto.getProductId()).get();
+        Cart cart = getCartByUser();
+        Set<ItemOfCart> itemsOfCarts = cart.getItems();
+        Optional<ItemOfCart> findItem = itemsOfCarts.stream().filter(item -> item.getProduct().getId() == p.getId()).findFirst();
+        if(findItem.isPresent()) {
+            ItemOfCart itemOfCart = findItem.get();
+            itemOfCart.setQuantity(itemDto.getQuantityOfProduct());
+            itemOfCart.setStatus(itemDto.getStatus());
+
+        }
+
+        cart.setItems(itemsOfCarts);
+        cartRepo.save(cart);
+        return cart;
+    }
+
+    @Override
+    public Cart deleteItem(int id) {
+        itemOfCartRepo.deleteById(id);
+        return getCartByUser();
+    }
 //
 //    @Override
 //    public void increaseQuantity(int productId) {
