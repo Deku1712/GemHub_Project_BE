@@ -6,46 +6,42 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.*;
+import java.util.Objects;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "Cart")
-public class Cart {
+public class ItemOfCart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private int id;
 
-    @OneToOne
-    @JoinColumn(name = "userId")
+    @ManyToOne
+    @JoinColumn(name = "cartId")
     @JsonIgnore
-    private User user;
+    private Cart cart;
 
-//    @ElementCollection
-//    @CollectionTable(name = "cart_items", joinColumns = @JoinColumn(name = "cart_id"))
-//    @MapKeyJoinColumn(name = "product_id")
-//    @Column(name = "quantity")
-//    private Map<Product, Integer> items = new HashMap<>();
+    @ManyToOne
+    @JoinColumn(name = "productId")
+    private Product product;
 
-    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL)
-    private Set<ItemOfCart> items = new HashSet<>();
+    @Column(name = "quantity")
+    private int quantity;
+
+    @Column(name = "status")
+    private Boolean status;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Cart cart = (Cart) o;
-        return id == cart.id;
+        ItemOfCart that = (ItemOfCart) o;
+        return id == that.id;
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(id);
     }
-
-
-
 }
