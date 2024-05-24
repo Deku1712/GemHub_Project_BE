@@ -20,13 +20,10 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
-
     @GetMapping
     public List<Product> getAllProduct() {
         return productService.findAll();
     }
-
-
 
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
@@ -61,5 +58,11 @@ public class ProductController {
     @DeleteMapping("/{id}")
     public void deleteProductById(@PathVariable("id") int id) {
         productService.deleteProductById(id);
+    }
+
+    @GetMapping("/search/{keyword}")
+    public List<Product> searchProductByWord(@PathVariable("keyword") String keyword) {
+        System.out.printf(keyword);
+        return productService.searchProduct(keyword);
     }
 }

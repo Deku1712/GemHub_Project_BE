@@ -65,4 +65,9 @@ public class ProductServiceImpl implements ProductService {
     public void deleteProductById(int id) {
         productRepo.deleteById(id);
     }
+
+    @Override
+    public List<Product> searchProduct(String word) {
+        return productRepo.findByProductNameContainingIgnoreCase(word);
+    }
 }

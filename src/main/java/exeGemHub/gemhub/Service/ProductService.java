@@ -24,4 +24,6 @@ public interface ProductService {
     Product updateProductById(int id, ProductDto productDto);
 
     void deleteProductById(int id);
+
+    List<Product> searchProduct(String word);
 }
