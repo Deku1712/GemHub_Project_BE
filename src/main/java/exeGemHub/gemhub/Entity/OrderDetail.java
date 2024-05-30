@@ -1,9 +1,11 @@
 package exeGemHub.gemhub.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
 @NoArgsConstructor
@@ -19,9 +21,12 @@ public class OrderDetail {
 
     @ManyToOne
     @JoinColumn(name = "orderId")
+    @JsonIgnore
+    @ToString.Exclude
     private Order order;
-    @Column(name = "productName")
-    private String productName;
+    @ManyToOne
+    @JoinColumn(name = "productId")
+    private Product product;
     @Column(name = "productQuantity")
     private int productQuantity;
     @Column(name = "productPrice")
