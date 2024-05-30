@@ -13,8 +13,12 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.stream.Collectors;
 
 @Service
 public class CartServiceImpl implements CartService {
@@ -29,9 +33,10 @@ public class CartServiceImpl implements CartService {
     private ItemOfCartRepo itemOfCartRepo;
 
 
-
     @Autowired
     private ProductRepo productRepo;
+
+
     @Override
     public Cart getCartByUser() {
         SecurityContext contextHolder = SecurityContextHolder.getContext();
@@ -88,8 +93,11 @@ public class CartServiceImpl implements CartService {
         Optional<ItemOfCart> findItem = itemsOfCarts.stream().filter(item -> item.getProduct().getId() == p.getId()).findFirst();
         if(findItem.isPresent()) {
             ItemOfCart itemOfCart = findItem.get();
-            itemOfCart.setQuantity(itemDto.getQuantityOfProduct());
+            if(itemOfCart.getProduct().getProductQuantity() > itemDto.getQuantityOfProduct()) {
+                itemOfCart.setQuantity(itemDto.getQuantityOfProduct());
+            }
             itemOfCart.setStatus(itemDto.getStatus());
+            
 
         }
 
@@ -103,6 +111,69 @@ public class CartServiceImpl implements CartService {
         itemOfCartRepo.deleteById(id);
         return getCartByUser();
     }
+
+    @Override
+    public void clearItem() {
+        List<ItemOfCart> itemOfCarts = new ArrayList<>(getOrder()); // Chuyển từ Set sang List
+        try {
+            System.out.println("Đang xóa các mặt hàng...");
+            for (ItemOfCart item : itemOfCarts) {
+                System.out.println("hi "+item.getId());
+                if (itemOfCartRepo.existsById(item.getId())) {
+                    itemOfCartRepo.deleteById(item.getId());
+                    System.out.println("Đã xóa mặt hàng với ID = " + item.getId());
+                } else {
+                    System.out.println("Không tìm thấy mặt hàng với ID = " + item.getId());
+                }
+            }
+            // Kiểm tra xem các mặt hàng đã được xóa thành công hay không
+            for (ItemOfCart item : itemOfCarts) {
+                if (!itemOfCartRepo.existsById(item.getId())) {
+                    System.out.println("Xác nhận: Mặt hàng với ID = " + item.getId() + " đã được xóa.");
+                } else {
+                    System.out.println("Lỗi: Mặt hàng với ID = " + item.getId() + " vẫn tồn tại.");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Ngoại lệ trong clearItem: " + e.getMessage());
+        }
+    }
+
+
+    @Override
+    public boolean checkQuantity() {
+        boolean isUpdated = true;
+        Cart cart = getCartByUser();
+        Set<ItemOfCart> itemOfCartList = cart.getItems();
+
+        for (ItemOfCart itemOfCart : itemOfCartList) {
+            System.out.println(itemOfCart.getProduct().getProductQuantity());
+            System.out.println(itemOfCart.getQuantity());
+            if (itemOfCart.getProduct().getProductQuantity() < itemOfCart.getQuantity()) {
+                itemOfCart.setQuantity(itemOfCart.getProduct().getProductQuantity());
+                itemOfCart.setStatus(false);
+                isUpdated = false;
+            }
+        }
+
+        if (isUpdated) {
+            cartRepo.save(cart);
+        }
+
+        return isUpdated;
+    }
+
+    @Override
+    public Set<ItemOfCart> getOrder() {
+        Cart cart = getCartByUser();
+        Set<ItemOfCart> cartItems = cart.getItems();
+        return cartItems.stream().filter(itemOfCart -> itemOfCart.getStatus() == true).collect(Collectors.toSet());
+
+
+
+    }
+
 //
 //    @Override
 //    public void increaseQuantity(int productId) {

@@ -40,7 +40,7 @@ public class Order {
     @Column(name = "total")
     private float total;
 
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "order" , cascade = CascadeType.ALL)
     private List<OrderDetail> orderDetails = new ArrayList<>();
 
 }

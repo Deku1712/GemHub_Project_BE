@@ -12,6 +12,7 @@ import java.util.Objects;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "ItemOfCarts")
 public class ItemOfCart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

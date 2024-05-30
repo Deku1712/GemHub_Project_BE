@@ -1,6 +1,7 @@
 package exeGemHub.gemhub.Service.impl;
 
 import exeGemHub.gemhub.DTO.ProductDto;
+import exeGemHub.gemhub.Entity.Image;
 import exeGemHub.gemhub.Entity.Product;
 import exeGemHub.gemhub.Repository.ProductRepo;
 import exeGemHub.gemhub.Service.ProductService;
@@ -36,6 +37,9 @@ public class ProductServiceImpl implements ProductService {
         p.setProductType(productDto.getProductType());
         p.setCreateTime(productDto.getCreateTime());
         p.setUpdateTime(productDto.getUpdateTime());
+        List<Image> images = productDto.getImgs();
+        images.forEach(image -> {image.setProduct(p);});
+        p.setImgs(images);
 
         return productRepo.save(p);
     }
