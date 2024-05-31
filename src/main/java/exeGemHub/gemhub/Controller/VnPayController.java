@@ -12,7 +12,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/payment")
-@CrossOrigin("*")
+@CrossOrigin
 public class VnPayController {
     @Autowired
     private VNPayService vnPayService;
@@ -55,7 +55,7 @@ public class VnPayController {
         // Xử lý các tham số trả về từ VNPay, ví dụ như kiểm tra vnp_SecureHash, cập nhật trạng thái đơn hàng, vv.
 
         // Chuyển hướng người dùng đến trang xác nhận thanh toán trên React với các tham số cần thiết
-        String redirectUrl = "http://localhost:5173/result?" + vnPayService.createQueryString(request) ;
+        String redirectUrl = "https://gem-hub-project-fe.vercel.app/result?" + vnPayService.createQueryString(request) ;
         return new RedirectView(redirectUrl);
     }
 }

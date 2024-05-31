@@ -26,7 +26,7 @@ import exeGemHub.gemhub.Entity.PostBlog;
 import exeGemHub.gemhub.Service.PostService;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin
 @RequestMapping("/posts")
 public class PostController {
 	
