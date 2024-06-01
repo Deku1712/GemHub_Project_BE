@@ -1,4 +1,6 @@
 FROM openjdk:17.0.1-jdk-slim
-COPY --from=build /target/gemhub-0.0.1-SNAPSHOT.jar /app/gemhub.jar
+VOLUME /tmp
+COPY target/*.jar app.jar
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "/app/gemhub.jar"]
+ENTRYPOINT ["java","-jar","/app.jar"]
+
