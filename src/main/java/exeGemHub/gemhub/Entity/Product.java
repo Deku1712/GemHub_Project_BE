@@ -26,7 +26,7 @@ public class Product {
     private String productType;
     @Column(name = "productQuantity")
     private int productQuantity;
-    @Column(name = "productDescription")
+    @Column(name = "productDescription", columnDefinition = "NVARCHAR(250)")
     private String productDescription;
     @Column(name = "productPrice")
     private float productPrice;
