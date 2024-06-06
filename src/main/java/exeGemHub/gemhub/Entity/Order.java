@@ -1,6 +1,7 @@
 package exeGemHub.gemhub.Entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -39,8 +40,11 @@ public class Order {
     private String status;
     @Column(name = "total")
     private float total;
+    @Column(name = "statusPayment")
+    private String statusPayment;
 
-    @OneToMany(mappedBy = "order" , cascade = CascadeType.ALL)
+
+    @OneToMany(mappedBy = "order" , cascade = CascadeType.ALL , fetch = FetchType.LAZY)
     private List<OrderDetail> orderDetails = new ArrayList<>();
 
 }
