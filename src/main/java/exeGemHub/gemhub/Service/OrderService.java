@@ -2,9 +2,17 @@ package exeGemHub.gemhub.Service;
 
 
 import exeGemHub.gemhub.DTO.PaymentMethod;
+import exeGemHub.gemhub.Entity.Order;
+
+import java.util.List;
 
 public interface OrderService {
 
-    boolean createOrder(PaymentMethod paymentMethod);
+    Order createOrder(PaymentMethod paymentMethod);
 
+    List<Order> getAllOrders();
+
+    Order getOrderById(int id);
+
+    void updateOrder(int id, String statusOrder, String statusPayment);
 }
