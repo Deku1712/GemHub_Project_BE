@@ -1,0 +1,5 @@
+# Created at 2024-06-08T01:52:59.561
+Boot Manifest-JAR contains absolute paths in classpath 'D:\ImTam0.0\GemHub_Project\GemHub_Project_BE\target\test-classes'
+Hint: <argLine>-Djdk.net.URLClassPath.disableClassPathURLCheck=true</argLine>
+'other' has different root
+

@@ -65,4 +65,8 @@ public class ProductController {
         System.out.printf(keyword);
         return productService.searchProduct(keyword);
     }
+    @GetMapping("/getProductLimited")
+    public List<Product> getProductLimited() {
+        return productService.getProductLimtied();
+    }
 }

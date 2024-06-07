@@ -1,7 +1,9 @@
 exeGemHub\gemhub\Controller\VnPayController.class
+exeGemHub\gemhub\DTO\ResultDTO.class
 exeGemHub\gemhub\Service\impl\UserServiceImpl.class
 exeGemHub\gemhub\DTO\AddressDTO.class
 exeGemHub\gemhub\Repository\RoleRepo.class
+exeGemHub\gemhub\Controller\SessionController.class
 exeGemHub\gemhub\DTO\InforPayment.class
 exeGemHub\gemhub\Service\UserService.class
 exeGemHub\gemhub\DTO\ProductDto.class
@@ -21,6 +23,7 @@ exeGemHub\gemhub\Entity\User.class
 exeGemHub\gemhub\Controller\ProductController.class
 exeGemHub\gemhub\Repository\OrderDetailRepo.class
 exeGemHub\gemhub\Controller\CartController.class
+exeGemHub\gemhub\DTO\Status.class
 exeGemHub\gemhub\Entity\Role.class
 exeGemHub\gemhub\Repository\CartRepo.class
 exeGemHub\gemhub\Controller\AuthenController.class
@@ -58,4 +61,5 @@ exeGemHub\gemhub\Entity\Product.class
 exeGemHub\gemhub\Service\impl\OrderServiceImpl.class
 exeGemHub\gemhub\Service\OrderService.class
 exeGemHub\gemhub\jwt\WebConfig.class
+exeGemHub\gemhub\Config\AppConfig.class
 exeGemHub\gemhub\Advice\ApplicationExceptionHandler.class

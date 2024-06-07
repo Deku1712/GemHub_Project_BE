@@ -40,4 +40,18 @@ public class Product {
     @OneToMany(mappedBy = "product" , cascade = CascadeType.ALL)
     private List<Image> imgs = new ArrayList<>();
 
+    @Column(name = "theOrigin")
+    private String theOrigin;
+    @Column(name = "component")
+    private String component;
+    @Column(name = "stiffness")
+    private String stiffness;
+    @Column(name = "matchingDestiny")
+    private String matchingDestiny;
+    @Column(name = "healthEffects")
+    private String healthEffects;
+    @Column(name = "preserve")
+    private String preserve;
+    @Column(name ="limited")
+    private boolean limited;
 }

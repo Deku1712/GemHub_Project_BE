@@ -26,4 +26,8 @@ public interface ProductService {
     void deleteProductById(int id);
 
     List<Product> searchProduct(String word);
+
+    List<Product> getProductLimtied();
+
+//    List<Product> getProductLimtied();
 }

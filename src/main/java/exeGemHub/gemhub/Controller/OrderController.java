@@ -2,6 +2,7 @@ package exeGemHub.gemhub.Controller;
 
 import exeGemHub.gemhub.DTO.PaymentMethod;
 import exeGemHub.gemhub.DTO.ResultDTO;
+import exeGemHub.gemhub.DTO.Status;
 import exeGemHub.gemhub.Entity.Order;
 import exeGemHub.gemhub.Service.OrderService;
 import jakarta.servlet.http.Cookie;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/order")
@@ -43,6 +45,19 @@ public class OrderController {
         }else {
             orderService.updateOrder(resultDTO.getOrderId(), "FAID" , "UNPAID");
         }
+    }
+    @PutMapping("/{id}")
+    public void updateOrder(@PathVariable("id") int id, @RequestBody Status status) {
+        orderService.updateOrderStatus(id , status.getStatus());
+    }
+
+    @GetMapping("/monthlyIncome")
+    public Map<Integer, Float> getMonthlyIncome() {
+        return orderService.getMonthlyIncome();
+    }
+    @GetMapping("/getTodayIncome")
+    public float getTodayIncome() {
+        return orderService.getTodayIncome();
     }
 
 }
