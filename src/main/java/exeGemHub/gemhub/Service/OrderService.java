@@ -5,6 +5,7 @@ import exeGemHub.gemhub.DTO.PaymentMethod;
 import exeGemHub.gemhub.Entity.Order;
 
 import java.util.List;
+import java.util.Map;
 
 public interface OrderService {
 
@@ -15,4 +16,10 @@ public interface OrderService {
     Order getOrderById(int id);
 
     void updateOrder(int id, String statusOrder, String statusPayment);
+
+    void updateOrderStatus(int id, String status);
+
+    Map<Integer, Float> getMonthlyIncome();
+
+    Float getTodayIncome();
 }

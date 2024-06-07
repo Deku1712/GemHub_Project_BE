@@ -15,9 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Date;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -120,6 +118,33 @@ public class OrderServiceImpl implements OrderService {
         order.setStatusPayment(payment);
         order.setUpdateTime(Date.valueOf(LocalDate.now()));
         orderRepo.save(order);
+    }
+
+    @Override
+    public void updateOrderStatus(int id, String status) {
+        Order order = orderRepo.findById(id).get();
+        order.setStatus(status);
+        order.setUpdateTime(Date.valueOf(LocalDate.now()));
+        orderRepo.save(order);
+    }
+
+    @Override
+    public Map<Integer, Float> getMonthlyIncome() {
+        List<Object[]> results = orderRepo.findMonthlyIncome();
+        Map<Integer, Float> monthlyIncome = new HashMap<>();
+
+        for (Object[] result : results) {
+            Integer month = ((Number) result[0]).intValue();
+            Float totalIncome = ((Number) result[1]).floatValue();
+            monthlyIncome.put(month, totalIncome);
+        }
+
+        return monthlyIncome;
+    }
+
+    @Override
+    public Float getTodayIncome() {
+        return orderRepo.calculateTotalRevenueForToday();
     }
 
 
