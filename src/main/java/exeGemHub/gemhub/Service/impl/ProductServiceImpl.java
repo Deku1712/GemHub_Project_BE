@@ -74,4 +74,14 @@ public class ProductServiceImpl implements ProductService {
     public List<Product> searchProduct(String word) {
         return productRepo.findByProductNameContainingIgnoreCase(word);
     }
+
+    @Override
+    public List<Product> getProductLimtied() {
+        return productRepo.findByLimited(true);
+    }
+
+//    @Override
+//    public List<Product> getProductLimtied() {
+//        return productRepo.findByLimited(1);
+//    }
 }

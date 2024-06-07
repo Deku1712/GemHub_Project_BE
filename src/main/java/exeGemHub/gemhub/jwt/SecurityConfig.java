@@ -106,6 +106,7 @@ public class SecurityConfig {
 										.requestMatchers("/cart/**").permitAll()
 										.requestMatchers("/products").permitAll()
 										.requestMatchers("/products/**").permitAll()
+										.requestMatchers("/posts/**").permitAll()
 										.requestMatchers("/payment/vnpay-payment").permitAll()
 										.anyRequest()
 										.authenticated()
