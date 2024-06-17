@@ -2,6 +2,8 @@ package exeGemHub.gemhub.Controller;
 
 import exeGemHub.gemhub.DTO.SignUp;
 import exeGemHub.gemhub.Repository.UserRepo;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +13,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -54,7 +57,7 @@ public class AuthenController {
 		UserDetails userDetails = (UserDetails) authentication.getPrincipal();
 		User currentUser = userService.findByUsername(user.getUsername());
 
-		return ResponseEntity.ok(new JwtResponse(jwt, currentUser.getId(), userDetails.getUsername(), currentUser.getEmail(), userDetails.getAuthorities()));
+		return ResponseEntity.ok(new JwtResponse(jwt, currentUser.getId(), currentUser.getUsername(), currentUser.getEmail(), userDetails.getAuthorities()));
 	}
 
 	@PostMapping("/signUp")
@@ -73,5 +76,12 @@ public class AuthenController {
 
 	}
 
-
+	@PostMapping("/logout")
+	public ResponseEntity<?> logout(HttpServletRequest request, HttpServletResponse response) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		if (auth != null) {
+			new SecurityContextLogoutHandler().logout(request, response, auth);
+		}
+		return ResponseEntity.ok("Đăng xuất thành công!");
+	}
 }

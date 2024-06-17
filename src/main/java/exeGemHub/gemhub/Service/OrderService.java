@@ -12,6 +12,7 @@ public interface OrderService {
     Order createOrder(PaymentMethod paymentMethod);
 
     List<Order> getAllOrders();
+    List<Order> getAllOrdersByUserName(String userName);
 
     Order getOrderById(int id);
 
