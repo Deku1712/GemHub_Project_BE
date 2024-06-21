@@ -107,6 +107,12 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public List<Order> getAllOrdersByUserName(String userName) {
+        User user =  userRepo.findByUsername(userName);
+        return orderRepo.findOrdersByUser(user);
+    }
+
+    @Override
     public Order getOrderById(int id) {
        return orderRepo.findById(id).get();
     }

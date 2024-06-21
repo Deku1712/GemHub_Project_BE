@@ -1,6 +1,7 @@
 package exeGemHub.gemhub.Repository;
 
 import exeGemHub.gemhub.Entity.Order;
+import exeGemHub.gemhub.Entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -19,4 +20,6 @@ public interface OrderRepo extends JpaRepository<Order, Integer> {
             "FROM Order o " +
             "WHERE o.createTime = CURRENT_DATE")
     Float calculateTotalRevenueForToday();
+
+    List<Order> findOrdersByUser(User user);
 }

@@ -103,6 +103,7 @@ public class SecurityConfig {
 				.authorizeHttpRequests(req ->
 								req.requestMatchers("/authen/signUp").permitAll()
 										.requestMatchers("/authen/logIn").permitAll()
+										.requestMatchers("/authen/logout").permitAll()
 										.requestMatchers("/cart/**").permitAll()
 										.requestMatchers("/products").permitAll()
 										.requestMatchers("/products/**").permitAll()

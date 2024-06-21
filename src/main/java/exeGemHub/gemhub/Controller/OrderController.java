@@ -27,6 +27,11 @@ public class OrderController {
         return  orderService.getAllOrders();
     }
 
+    @GetMapping("/user/{userName}")
+    public List<Order> getAllOrdersByUserID(@PathVariable("userName") String userName) {
+        return  orderService.getAllOrdersByUserName(userName);
+    }
+
     @PostMapping
     public Order createOrder(@RequestBody PaymentMethod paymentMethod ) {
         return  orderService.createOrder(paymentMethod);
