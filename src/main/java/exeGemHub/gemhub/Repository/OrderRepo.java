@@ -19,4 +19,6 @@ public interface OrderRepo extends JpaRepository<Order, Integer> {
             "FROM Order o " +
             "WHERE o.createTime = CURRENT_DATE")
     Float calculateTotalRevenueForToday();
+
+    List<Order> findOrdersByUserId(int userId);
 }

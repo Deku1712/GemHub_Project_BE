@@ -8,6 +8,8 @@ import exeGemHub.gemhub.Service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,13 +32,20 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product createProduct(ProductDto productDto) {
         Product p = new Product();
-        p.setProductName(productDto.getProductName());
         p.setProductPrice(productDto.getProductPrice());
         p.setProductDescription(productDto.getProductDescription());
         p.setProductQuantity(productDto.getProductQuantity());
         p.setProductType(productDto.getProductType());
-        p.setCreateTime(productDto.getCreateTime());
-        p.setUpdateTime(productDto.getUpdateTime());
+        p.setCreateTime(Date.valueOf(LocalDate.now()));
+        p.setUpdateTime(Date.valueOf(LocalDate.now()));
+        p.setProductName(productDto.getProductName());
+        p.setTheOrigin(productDto.getTheOrigin());
+        p.setComponent(productDto.getComponent());
+        p.setStiffness(productDto.getStiffness());
+        p.setMatchingDestiny(productDto.getMatchingDestiny());
+        p.setHealthEffects(productDto.getHealthEffects());
+        p.setPreserve(productDto.getPreserve());
+        p.setLimited(productDto.isLimited());
         List<Image> images = productDto.getImgs();
         images.forEach(image -> {image.setProduct(p);});
         p.setImgs(images);
@@ -57,10 +66,18 @@ public class ProductServiceImpl implements ProductService {
         p.setProductDescription(productDto.getProductDescription());
         p.setProductQuantity(productDto.getProductQuantity());
         p.setProductType(productDto.getProductType());
-        p.setCreateTime(productDto.getCreateTime());
-        p.setUpdateTime(productDto.getUpdateTime());
+        p.setUpdateTime(Date.valueOf(LocalDate.now()));
         p.setProductName(productDto.getProductName());
-
+        p.setTheOrigin(productDto.getTheOrigin());
+        p.setComponent(productDto.getComponent());
+        p.setStiffness(productDto.getStiffness());
+        p.setMatchingDestiny(productDto.getMatchingDestiny());
+        p.setHealthEffects(productDto.getHealthEffects());
+        p.setPreserve(productDto.getPreserve());
+        p.setLimited(productDto.isLimited());
+        List<Image> images = productDto.getImgs();
+        images.forEach(image -> {image.setProduct(p);});
+        p.setImgs(images);
         return productRepo.save(p);
 
     }

@@ -147,5 +147,17 @@ public class OrderServiceImpl implements OrderService {
         return orderRepo.calculateTotalRevenueForToday();
     }
 
+    @Override
+    public List<Order> getOrderByUser() {
+        SecurityContext contextHolder = SecurityContextHolder.getContext();
+        Authentication authentication = contextHolder.getAuthentication();
+        UserPrinciple userPrinciple = (UserPrinciple) authentication.getPrincipal();
+        String username = userPrinciple.getUsername();
+        System.out.println(username);
+        User user = userRepo.findByUsername(username);
+        List<Order> list = orderRepo.findOrdersByUserId(user.getId());
+        return list;
+    }
+
 
 }
