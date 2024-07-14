@@ -22,4 +22,6 @@ public interface OrderService {
     Map<Integer, Float> getMonthlyIncome();
 
     Float getTodayIncome();
+
+    List<Order> getOrderByUser();
 }

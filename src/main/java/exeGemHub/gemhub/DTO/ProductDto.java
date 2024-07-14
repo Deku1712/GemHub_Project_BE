@@ -26,4 +26,11 @@ public class ProductDto {
     private Date createTime;
     private Date updateTime;
     private List<Image> imgs = new ArrayList<>();
+    private String theOrigin;
+    private String component;
+    private String stiffness;
+    private String matchingDestiny;
+    private String healthEffects;
+    private String preserve;
+    private boolean limited;
 }
